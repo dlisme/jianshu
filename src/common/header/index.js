@@ -33,9 +33,9 @@ import { actionCreators } from './store';
 // }
 
 class Header extends Component {
-  constructor(props){
-    super(props);
-  }
+  // constructor(props){
+  //   super(props);
+  // }
 
   getListArea(){
     const { focused, list, page, totalPage, mouseIn, handleMouseEnter, handleMouseLeave, handleChangePage } = this.props;
