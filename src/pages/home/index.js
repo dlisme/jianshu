@@ -1,5 +1,5 @@
 import React from 'react';
-import { HomeWrapper, HomeLeft, HomeRight } from './style';
+import { HomeWrapper, HomeLeft, HomeRight, BackTop } from './style';
 import Topic from './component/Topic';
 import List from './component/List';
 import Recomment from './component/Recomment';
@@ -10,6 +10,9 @@ import { actionCreators } from './store';
 
 
 class Home extends React.Component {
+  handleScrollTop(){
+    window.scrollTo(0,0);
+  }
     render(){
         return(
             <HomeWrapper>
@@ -25,14 +28,30 @@ class Home extends React.Component {
                   <Recomment></Recomment>
                   <Writer></Writer>
                 </HomeRight>
+                { this.props.showScroll ? <BackTop onClick={this.handleScrollTop}>顶部</BackTop> : null}
+                
             </HomeWrapper>
         )
     }
 
     componentDidMount(){
       this.props.changeHomeData();
+      this.bindEvents();
+    }
+
+    // 组件销毁，绑定的全局事件销毁
+    componentWillUnmount(){
+      window.removeEventListener('scroll', this.props.changeScrollTopShow)        
+    }
+
+    bindEvents(){
+      window.addEventListener('scroll', this.props.changeScrollTopShow)
     }
 }
+
+const mapState = (state) => ({
+  showScroll: state.getIn(['home', 'showScroll'])
+})
 
 const mapDispatch = (dispatch) => ({
 
@@ -51,6 +70,14 @@ const mapDispatch = (dispatch) => ({
 
     const action = actionCreators.getHomeInfo();
     dispatch(action);
+  },
+
+  changeScrollTopShow(){
+    if(document.documentElement.scrollTop > 100){
+      dispatch(actionCreators.toggleTopShow(true));
+    } else {
+      dispatch(actionCreators.toggleTopShow(false));
+    }
   }
 });
-export default connect(null, mapDispatch)(Home);
+export default connect(mapState, mapDispatch)(Home);

@@ -26,7 +26,7 @@ class List extends React.Component {
                 }
 
                 <LoadMore onClick={() => getMoreList(page)}>
-                    更多文字
+                    加载更多
                 </LoadMore>
             </div>
         )
