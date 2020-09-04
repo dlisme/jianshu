@@ -2,8 +2,9 @@ import React from 'react';
 import { ListItem, ListInfo, LoadMore } from '../style';
 import { connect } from 'react-redux';
 import { actionCreators } from '../store';
+import { Link } from 'react-router-dom';
 
-class List extends React.Component {
+class List extends React.PureComponent {
     render(){
         const { list, getMoreList, page } = this.props;
         return(
@@ -11,16 +12,21 @@ class List extends React.Component {
                 {
                     list.map((item,index) => {
                         return (
-                            <ListItem key={index}>
-                                <img className="list-pic" 
-                                 src={item.get('imgUrl')}
-                                 alt=''
-                                  />
-                                <ListInfo>
-                                    <h3 className='title'>{item.get('title')}</h3>
-                                    <p className='desc'>{item.get('desc')}</p>
-                                </ListInfo>
-                            </ListItem>
+                            // 不建议使用a标签，单页应用，只加载一次html标签，a标签加载多次，耗费性能
+                            // <a key={index} href='/detail'>
+                            <Link key={index} to='/detail'>
+                                <ListItem key={index}>
+                                    <img className="list-pic" 
+                                    src={item.get('imgUrl')}
+                                    alt=''
+                                    />
+                                    <ListInfo>
+                                        <h3 className='title'>{item.get('title')}</h3>
+                                        <p className='desc'>{item.get('desc')}</p>
+                                    </ListInfo>
+                                </ListItem>
+                            </Link>    
+                            // </a>
                         )
                     })
                 }

@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { TopicWrapper, TopicItem } from '../style'
 
-class Topic extends React.Component {
+class Topic extends React.PureComponent {
     render() {
         const { list } = this.props;
         return (

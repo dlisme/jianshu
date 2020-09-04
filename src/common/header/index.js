@@ -4,6 +4,7 @@ import { HeaderWrapper, Logo, Nav, NavItem, SearchWrapper, NavSearch, SearchInfo
 import { connect } from 'react-redux';
 // import  * as actionCreators  from './store/actionCreators';
 import { actionCreators } from './store';
+import { Link } from "react-router-dom";
 
 // 无状态组件
 // const Header = (props) => {
@@ -75,7 +76,9 @@ class Header extends Component {
     const { focused, handleInputFocus, handleInputBlur, list } = this.props;
     return (
       <HeaderWrapper>
-        <Logo></Logo>
+        <Link to="/">
+          <Logo></Logo>
+        </Link>
         <Nav>
           <NavItem className='left active'>
             首页

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { PureComponent } from 'react';
 import { HomeWrapper, HomeLeft, HomeRight, BackTop } from './style';
 import Topic from './component/Topic';
 import List from './component/List';
@@ -9,7 +9,10 @@ import { connect } from 'react-redux';
 import { actionCreators } from './store';
 
 
-class Home extends React.Component {
+class Home extends PureComponent {
+
+  shouldComponentUpdate
+
   handleScrollTop(){
     window.scrollTo(0,0);
   }
@@ -81,3 +84,11 @@ const mapDispatch = (dispatch) => ({
   }
 });
 export default connect(mapState, mapDispatch)(Home);
+
+// 几乎每个组件都调用了connect方法和store做了连接
+// 产生问题
+// 只要store发生改变，每一个组件就会重新渲染
+// 有些组件数据发生改变和另外的组件没有关系，但是这个组件依然会重新渲染
+// 用shouldComponentUpdate做性能优化，与组件相关的数据发生改变，让该组件的render函数的执行
+// 但是不能在每一个组件都使用shouldComponentUpdate， 可以用react内置的新的组件类型 PureComponent
+// PureComponent会Component的区别，PureComponent底层实现了一个shouldComponentUpdate
