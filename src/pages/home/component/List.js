@@ -14,7 +14,10 @@ class List extends React.PureComponent {
                         return (
                             // 不建议使用a标签，单页应用，只加载一次html标签，a标签加载多次，耗费性能
                             // <a key={index} href='/detail'>
-                            <Link key={index} to='/detail'>
+                            // 第一种带参方式
+                            <Link key={index} to={'/detail/' + item.get('id')}>
+                            {/* // 第二种带参方式 */}
+                            {/* // <Link key={index} to={'/detail?id=' + item.get('id')}> */}
                                 <ListItem key={index}>
                                     <img className="list-pic" 
                                     src={item.get('imgUrl')}

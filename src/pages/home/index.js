@@ -11,7 +11,7 @@ import { actionCreators } from './store';
 
 class Home extends PureComponent {
 
-  shouldComponentUpdate
+  // shouldComponentUpdate
 
   handleScrollTop(){
     window.scrollTo(0,0);
